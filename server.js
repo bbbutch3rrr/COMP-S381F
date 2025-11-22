@@ -84,7 +84,7 @@ app.get('/', requireAuth, async (req, res) => {
     if (searchText) query.title = { $regex: searchText, $options: 'i' }; // Case insensitive search
 
     const tasks = await Task.find(query).sort({ createdAt: -1 });
-    res.render('index', { tasks: tasks, user: req.session.userId });
+    res.render('dashboard', { tasks: tasks, user: req.session.userId });
 });
 
 // CREATE - Show Form
