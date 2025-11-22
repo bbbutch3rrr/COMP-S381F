@@ -3,17 +3,16 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const app = express();
 
-// -- Database Connection --
-// Connect to local MongoDB. Change the URL if using MongoDB Atlas.
+// Database connection
 mongoose.connect('mongodb://127.0.0.1:27017/taskmanagerDB')
     .then(() => console.log("Connected to MongoDB"))
     .catch(err => console.error("Could not connect to MongoDB", err));
 
-// -- Import Models --
+// Models import
 const User = require('./models/user');
 const Task = require('./models/task');
 
-// -- Middleware --
+// Middleware
 app.set('view engine', 'ejs'); // Set EJS as template engine
 app.use(express.urlencoded({ extended: true })); // Parse form data
 app.use(express.json()); // Parse JSON data (for APIs)
@@ -21,11 +20,11 @@ app.use(express.json()); // Parse JSON data (for APIs)
 // Session configuration for Authentication
 app.use(cookieSession({
     name: 'session',
-    keys: ['secretkey1', 'secretkey2'], // Change strictly for production
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    keys: ['secretkey1', 'secretkey2'],
+    maxAge: 24 * 60 * 60 * 1000
 }));
 
-// -- Helper Middleware to check if user is logged in --
+// Logged in check
 const requireAuth = (req, res, next) => {
     if (req.session.userId) {
         next();
