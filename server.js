@@ -13,9 +13,9 @@ const User = require('./models/user');
 const Task = require('./models/task');
 
 // Middleware
-app.set('view engine', 'ejs'); // Set EJS as template engine
-app.use(express.urlencoded({ extended: true })); // Parse form data
-app.use(express.json()); // Parse JSON data (for APIs)
+app.set('view engine', 'ejs'); 
+app.use(express.urlencoded({ extended: true })); 
+app.use(express.json()); 
 
 // Session configuration for Authentication
 app.use(cookieSession({
