@@ -33,9 +33,7 @@ const requireAuth = (req, res, next) => {
     }
 };
 
-// ============================================================
-// 1. AUTHENTICATION ROUTES (Login / Register / Logout)
-// ============================================================
+// 1. AUTHENTICATION ROUTES (Login/Register/Logout)
 
 app.get('/login', (req, res) => {
     res.render('login', { error: null });
@@ -72,9 +70,7 @@ app.get('/logout', (req, res) => {
     res.redirect('/login');
 });
 
-// ============================================================
 // 2. WEB UI ROUTES (Protected by requireAuth)
-// ============================================================
 
 // READ - Dashboard with Search/Filter
 app.get('/', requireAuth, async (req, res) => {
@@ -120,11 +116,9 @@ app.post('/delete/:id', requireAuth, async (req, res) => {
     res.redirect('/');
 });
 
-// ============================================================
-// 3. RESTful API SERVICES (No Auth required per instructions)
-// ============================================================
+// 3. RESTful API SERVICES
 
-// API: READ All Tasks
+// API: Read tasks
 app.get('/api/tasks', async (req, res) => {
     try {
         const tasks = await Task.find();
@@ -134,7 +128,7 @@ app.get('/api/tasks', async (req, res) => {
     }
 });
 
-// API: CREATE a Task
+// API: Create a task
 app.post('/api/tasks', async (req, res) => {
     try {
         const newTask = await Task.create(req.body);
@@ -144,7 +138,7 @@ app.post('/api/tasks', async (req, res) => {
     }
 });
 
-// API: UPDATE a Task
+// API: Update a task
 app.put('/api/tasks/:id', async (req, res) => {
     try {
         const updatedTask = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
@@ -154,11 +148,11 @@ app.put('/api/tasks/:id', async (req, res) => {
     }
 });
 
-// API: DELETE a Task
+// API: Delete a task
 app.delete('/api/tasks/:id', async (req, res) => {
     try {
         await Task.findByIdAndDelete(req.params.id);
-        res.status(204).send(); // 204 No Content
+        res.status(204).send();
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
