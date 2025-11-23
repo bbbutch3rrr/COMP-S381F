@@ -81,7 +81,7 @@ app.get('/', requireAuth, async (req, res) => {
     // Build query object
     let query = {};
     if (searchStatus) query.status = searchStatus;
-    if (searchText) query.title = { $regex: searchText, $options: 'i' }; // Case insensitive search
+    if (searchText) query.title = { $regex: searchText, $options: 'i' };
 
     const tasks = await Task.find(query).sort({ createdAt: -1 });
     res.render('dashboard', { tasks: tasks, user: req.session.userId });
